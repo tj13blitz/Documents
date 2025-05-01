@@ -9,7 +9,7 @@ import seaborn as sns
 import plotly.express as px
 from sklearn.decomposition import PCA
 
-df = pd.read_csv('stats.csv')
+df = pd.read_csv('/mount/src/documents/streamlit/stats.csv')
 df.columns = ['Last Name, First Name', 'Player ID','Year','IP','Plate Appearances', 'Hits','Home Runs','K','BB','K%','BB%','OBP', 'BABIP','ERA','HBP','Soft Contact%','Hard Hit%','Whiff%','GB%','FB%','LD%','Popup%','TP','Fastball%','Breaking%','Offspeed%']
 
 # Create calculated stats
