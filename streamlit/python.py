@@ -79,8 +79,8 @@ with st.container():
 
 with st.container():
     chart = alt.Chart(elbow_data).mark_line().encode(
-        x='Number of Clusters (k):N',
-        y=alt.Y('Inertia:Q', scale=alt.Scale(domain=[5000, None])),
+        x='Number of Clusters (k)',
+        y=alt.Y('Inertia', scale=alt.Scale(domain=[5000, None])),
         tooltip=['Number of Clusters (k)', 'Inertia']
     ).properties(
         width='container'
