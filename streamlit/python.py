@@ -8,6 +8,7 @@ from sklearn.impute import SimpleImputer
 import seaborn as sns
 import plotly.express as px
 from sklearn.decomposition import PCA
+import altair as alt
 
 df = pd.read_csv('/mount/src/documents/streamlit/stats.csv')
 df.columns = ['Last Name, First Name', 'Player ID','Year','IP','Plate Appearances', 'Hits','Home Runs','K','BB','K%','BB%','OBP', 'BABIP','ERA','HBP','Soft Contact%','Hard Hit%','Whiff%','GB%','FB%','LD%','Popup%','TP','Fastball%','Breaking%','Offspeed%']
@@ -75,6 +76,17 @@ with st.container():
         elbow_data.set_index('Number of Clusters (k)'),
         use_container_width=True
     )
+
+with st.container():
+    chart = alt.Chart(elbow_data).mark_line().encode(
+        x='Number of Clusters (k):N',
+        y=alt.Y('Inertia:Q', scale=alt.Scale(domain=[5000, None])),
+        tooltip=['Number of Clusters (k)', 'Inertia']
+    ).properties(
+        width='container'
+    )
+    
+    st.altair_chart(chart, use_container_width=True)
 
 #Apply K-Means for k=3
 kmeans_3 = KMeans(n_clusters=3, random_state=42)
