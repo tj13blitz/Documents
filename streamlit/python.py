@@ -70,13 +70,6 @@ elbow_data = pd.DataFrame({
 
 st.header("Elbow Analysis Reveals 3 Clusters as Optimal")
 
-# Create elbow plot
-with st.container():
-    st.line_chart(
-        elbow_data.set_index('Number of Clusters (k)'),
-        use_container_width=True
-    )
-
 with st.container():
     chart = alt.Chart(elbow_data).mark_line().encode(
         x='Number of Clusters (k)',
@@ -134,6 +127,7 @@ fig.update_layout(
     yaxis_title="ERA",
     legend_title="Cluster Group"
 )
+st.plotly_chart(fig, use_container_width=True)
 
 # Display in Streamlit
 st.write("This shows the different clusters and how individuals perform based on ERA and WHIP, strikeout pitchers tend to be in the lower left corner making them the most effective in these aspects.")
@@ -159,12 +153,7 @@ fig2.update_layout(
 )
 
 # Display in Streamlit
-col1, col2 = st.columns(2)
-with st.container():
-    with col1:
-        st.plotly_chart(fig, use_container_width=True)
-    with col2: 
-        st.plotly_chart(fig2, use_container_width=True)
+st.plotly_chart(fig2, use_container_width=True)
 
 st.header("Pitcher Clusters, K% vs. BABIP")
 fig3 = px.scatter(
