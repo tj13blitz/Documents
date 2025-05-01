@@ -154,6 +154,7 @@ fig2.update_layout(
 
 # Display in Streamlit
 st.plotly_chart(fig2, use_container_width=True)
+st.write("This graph shows how the clusters line up clearly with their titles, strikeout pitchers with a high K% and contact pitchers with a high GB%, with hybrid pitchers falling in the middle.")
 
 st.header("Pitcher Clusters, K% vs. BABIP")
 fig3 = px.scatter(
@@ -177,6 +178,7 @@ fig3.update_layout(
 
 # Display in Streamlit
 st.plotly_chart(fig3, use_container_width=True)
+st.write("This graph shows how the clusters line up clearly with their titles, strikeout pitchers have a high K% and contact pitchers have a high average on balls put in play.")
 
 # Select numerical features for PCA
 pca_features = ['K%', 'BB%', 'BABIP', 'Soft Contact%', 'Hard Hit%', 'Whiff%', 'GB%', 'FB%', 'LD%', 'Popup%', 'Fastball%', 'Breaking%', 'Offspeed%', 'K/9', 'TP/9']
@@ -230,3 +232,4 @@ ax.set_ylabel('Principal Component 2')
 
 # Display in Streamlit
 st.pyplot(fig5)
+st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
