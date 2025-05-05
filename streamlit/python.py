@@ -24,11 +24,15 @@ df['K/9'] = K_per_nine
 df['WHIP'] = WHIP
 df['TP/9'] = TP_Per_9
 
-st.header("Data Science Capstone")
-st.header("MLB Pitchers, Contact vs. Strikeout")
+hcol1, hcol2, hcol3 = st.columns(3)
+with hcol2:
+    st.header("Data Science Capstone")
+h2col1, h2col2, h2col3 = st.columns(3)
+with hcol2:
+    st.header("MLB Pitchers, Contact vs. Strikeout")
 
-st.subheader("Tyler Blitz, Jaden Whittaker, Brendan Ortlieb and Tristan Boutin")
-st.subheader("Professor: Dr. Eric Breimer")
+st.write("Tyler Blitz, Jaden Whittaker, Brendan Ortlieb and Tristan Boutin")
+st.write("Professor: Dr. Eric Breimer")
 
 st.write("Take a look at the data used! All 2024 MLB pitchers with min. 100 PA.")
 st.write("Choose which stats you want to see or search for specific players.")
