@@ -109,10 +109,13 @@ st.header("Mean and Median Values of ERA, FIP, WHIP, and BABIP by Cluster")
 st.dataframe(cluster_stats)
 st.write("This shows that strikeout pitchers are the most effective in terms of ERA, FIP and WHIP, while contact pitchers are the most effective in terms of BABIP. This makes sense as the traditional contact pitcher generates more weak contact.")
 
+col1, col2 = st.columns(2)
+
 # Create a button to toggle content
-if st.button("Cluster Analysis Visualizations"):
-    # This will toggle the state between True and False
-    st.session_state.show_cluster_analysis = not st.session_state.get('show_cluster_analysis', False)
+with col1:
+    if st.button("Cluster Analysis Visualizations", key="cluster_button"):
+        # This will toggle the state between True and False
+        st.session_state.show_cluster_analysis = not st.session_state.get('show_cluster_analysis', False)
 
 # Initialize the state if it doesn't exist
 if 'show_cluster_analysis' not in st.session_state:
@@ -218,9 +221,10 @@ principal_df['WHIP'] = df['WHIP']
 principal_df['K%'] = df['K%']
 
 # Create a button to toggle content
-if st.button("PCA Visualizations"):
-    # This will toggle the state between True and False
-    st.session_state.show_pca = not st.session_state.get('show_pca', False)
+with col2:
+    if st.button("PCA Visualizations", key="PCA_button"):
+        # This will toggle the state between True and False
+        st.session_state.show_pca = not st.session_state.get('show_pca', False)
 
 # Initialize the state if it doesn't exist
 if 'show_pca' not in st.session_state:
