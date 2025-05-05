@@ -26,12 +26,12 @@ df['TP/9'] = TP_Per_9
 
 
 st.title("Data Science Capstone: MLB Pitchers, Contact vs. Strikeout")
-hcol1, hcol2, hcol3 = st.columns(3)
-with hcol2:
-    st.header("Contact vs. Strikeout")
+st.divider()
 
-st.write("Tyler Blitz, Jaden Whittaker, Brendan Ortlieb and Tristan Boutin")
-st.write("Professor: Dr. Eric Breimer")
+st.write("Capstone Contributors: Tyler Blitz, Jaden Whittaker, Brendan Ortlieb and Tristan Boutin, Professor: Dr. Eric Breimer")
+st.write("Website Contributors: Shane Bourdeau, Tyler Blitz, Professor: Ninad Chaudhari")
+
+st.divider()
 
 st.write("Take a look at the data used! All 2024 MLB pitchers with min. 100 PA.")
 st.write("Choose which stats you want to see or search for specific players.")
