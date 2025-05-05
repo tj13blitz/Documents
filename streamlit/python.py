@@ -109,77 +109,87 @@ st.header("Mean and Median Values of ERA, FIP, WHIP, and BABIP by Cluster")
 st.dataframe(cluster_stats)
 st.write("This shows that strikeout pitchers are the most effective in terms of ERA, FIP and WHIP, while contact pitchers are the most effective in terms of BABIP. This makes sense as the traditional contact pitcher generates more weak contact.")
 
-st.header("Pitcher Clusters, WHIP vs. ERA")
-fig = px.scatter(
-    df,
-    x='WHIP',
-    y='ERA',
-    color='Group',
-    color_discrete_map=cluster_color,
-    title=" ",
-    height=600,
-    hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP']  # Show all columns in hover
-)
+# Create a button to toggle content
+if st.button("Cluster Analysis Visualizations"):
+    # This will toggle the state between True and False
+    st.session_state.show_cluster_analysis = not st.session_state.get('show_cluster_analysis', False)
 
-# Customize layout
-fig.update_layout(
-    title={'y':0.95, 'x':0.5},
-    xaxis_title="WHIP",
-    yaxis_title="ERA",
-    legend_title="Cluster Group"
-)
-st.plotly_chart(fig, use_container_width=True)
+# Initialize the state if it doesn't exist
+if 'show_cluster_analysis' not in st.session_state:
+    st.session_state.shoshow_cluster_analysisw_pca = False
 
-# Display in Streamlit
-st.write("This shows the different clusters and how individuals perform based on ERA and WHIP, strikeout pitchers tend to be in the lower left corner making them the most effective in these aspects.")
+if st.session_state.show_cluster_analysis:
+    st.header("Pitcher Clusters, WHIP vs. ERA")
+    fig = px.scatter(
+        df,
+        x='WHIP',
+        y='ERA',
+        color='Group',
+        color_discrete_map=cluster_color,
+        title=" ",
+        height=600,
+        hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP']  # Show all columns in hover
+    )
 
-st.header("Pitcher Clusters, K% vs. GB%")
-fig2 = px.scatter(
-    df,
-    x='K%',
-    y='GB%',
-    color='Group',
-    color_discrete_map=cluster_color,
-    title=" ",
-    height=600,
-    hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP']  # Show all columns in hover
-)
+    # Customize layout
+    fig.update_layout(
+        title={'y':0.95, 'x':0.5},
+        xaxis_title="WHIP",
+        yaxis_title="ERA",
+        legend_title="Cluster Group"
+    )
+    st.plotly_chart(fig, use_container_width=True)
 
-# Customize layout
-fig2.update_layout(
-    title={'y':0.95, 'x':0.5},
-    xaxis_title="K%",
-    yaxis_title="GB%",
-    legend_title="Cluster Group"
-)
+    # Display in Streamlit
+    st.write("This shows the different clusters and how individuals perform based on ERA and WHIP, strikeout pitchers tend to be in the lower left corner making them the most effective in these aspects.")
 
-# Display in Streamlit
-st.plotly_chart(fig2, use_container_width=True)
-st.write("This graph shows how the clusters line up clearly with their titles, strikeout pitchers with a high K% and contact pitchers with a high GB%, with hybrid pitchers falling in the middle.")
+    st.header("Pitcher Clusters, K% vs. GB%")
+    fig2 = px.scatter(
+        df,
+        x='K%',
+        y='GB%',
+        color='Group',
+        color_discrete_map=cluster_color,
+        title=" ",
+        height=600,
+        hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP']  # Show all columns in hover
+    )
 
-st.header("Pitcher Clusters, K% vs. BABIP")
-fig3 = px.scatter(
-    df,
-    x='K%',
-    y='GB%',
-    color='Group',
-    color_discrete_map=cluster_color,
-    title=" ",
-    height=600,
-    hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']  # Show all columns in hover
-)
+    # Customize layout
+    fig2.update_layout(
+        title={'y':0.95, 'x':0.5},
+        xaxis_title="K%",
+        yaxis_title="GB%",
+        legend_title="Cluster Group"
+    )
 
-# Customize layout
-fig3.update_layout(
-    title={'y':0.95, 'x':0.5},
-    xaxis_title="K%",
-    yaxis_title="BABIP",
-    legend_title="Cluster Group"
-)
+    # Display in Streamlit
+    st.plotly_chart(fig2, use_container_width=True)
+    st.write("This graph shows how the clusters line up clearly with their titles, strikeout pitchers with a high K% and contact pitchers with a high GB%, with hybrid pitchers falling in the middle.")
 
-# Display in Streamlit
-st.plotly_chart(fig3, use_container_width=True)
-st.write("This graph shows how the clusters line up clearly with their titles, strikeout pitchers have a high K% and contact pitchers have a high average on balls put in play.")
+    st.header("Pitcher Clusters, K% vs. BABIP")
+    fig3 = px.scatter(
+        df,
+        x='K%',
+        y='GB%',
+        color='Group',
+        color_discrete_map=cluster_color,
+        title=" ",
+        height=600,
+        hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']  # Show all columns in hover
+    )
+
+    # Customize layout
+    fig3.update_layout(
+        title={'y':0.95, 'x':0.5},
+        xaxis_title="K%",
+        yaxis_title="BABIP",
+        legend_title="Cluster Group"
+    )
+
+    # Display in Streamlit
+    st.plotly_chart(fig3, use_container_width=True)
+    st.write("This graph shows how the clusters line up clearly with their titles, strikeout pitchers have a high K% and contact pitchers have a high average on balls put in play.")
 
 # Select numerical features for PCA
 pca_features = ['K%', 'BB%', 'BABIP', 'Soft Contact%', 'Hard Hit%', 'Whiff%', 'GB%', 'FB%', 'LD%', 'Popup%', 'Fastball%', 'Breaking%', 'Offspeed%', 'K/9', 'TP/9']
@@ -208,7 +218,7 @@ principal_df['WHIP'] = df['WHIP']
 principal_df['K%'] = df['K%']
 
 # Create a button to toggle content
-if st.button("Toggle PCA Visualizations"):
+if st.button("PCA Visualizations"):
     # This will toggle the state between True and False
     st.session_state.show_pca = not st.session_state.get('show_pca', False)
 
