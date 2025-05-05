@@ -234,15 +234,22 @@ ax.set_ylabel('Principal Component 2')
 st.pyplot(fig5)
 st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
 
+principal_df['Last Name, First Name'] = df['Last Name, First Name']
+principal_df['BABIP'] = df['BABIP']
+principal_df['FIP'] = df['FIP']
+principal_df['ERA'] = df['ERA']
+principal_df['WHIP'] = df['WHIP']
+principal_df['K%'] = df['K%']
+
 fig6 = px.scatter(
-    df,
+    principal_df, 
     x='PC1',
     y='PC2',
     color='Group',
     color_discrete_map=cluster_color,
-    title=" ",
+    title="PCA of Pitcher Data (PC1 vs PC2)",
     height=600,
     hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']
 )
 
-st.pyplot(fig6)
+st.plotly_chart(fig6, use_container_width=True)
