@@ -24,12 +24,11 @@ df['K/9'] = K_per_nine
 df['WHIP'] = WHIP
 df['TP/9'] = TP_Per_9
 
+
+st.title("Data Science Capstone: MLB Pitchers, Contact vs. Strikeout")
 hcol1, hcol2, hcol3 = st.columns(3)
 with hcol2:
-    st.header("Data Science Capstone")
-h2col1, h2col2, h2col3 = st.columns(3)
-with hcol2:
-    st.header("MLB Pitchers, Contact vs. Strikeout")
+    st.header("Contact vs. Strikeout")
 
 st.write("Tyler Blitz, Jaden Whittaker, Brendan Ortlieb and Tristan Boutin")
 st.write("Professor: Dr. Eric Breimer")
