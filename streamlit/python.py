@@ -98,21 +98,31 @@ cluster_color = {
     "Hybrid": "blue"
 }
 
-df["Cluster"] = clusters_3
-df['Group'] = df['Cluster'].map(cluster_mapping)
-st.header("Mean Values for Each Feature by Cluster")
-st.dataframe(df.groupby("Group")[features].mean())
-st.write("This shows the clear distinctions between the features the groups were clustered by.")
+col1, col2, col3 = st.columns(3)
 
-cluster_stats = df.groupby('Group')[['ERA', 'FIP', 'WHIP', 'BABIP']].agg(['mean', 'median'])
-st.header("Mean and Median Values of ERA, FIP, WHIP, and BABIP by Cluster")
-st.dataframe(cluster_stats)
-st.write("This shows that strikeout pitchers are the most effective in terms of ERA, FIP and WHIP, while contact pitchers are the most effective in terms of BABIP. This makes sense as the traditional contact pitcher generates more weak contact.")
+with col1:
+    if st.button("Cluster Analysis Visualizations", key="cluster_button"):
+        # This will toggle the state between True and False
+        st.session_state.show_df = not st.session_state.get('show_df', False)
 
-col1, col2 = st.columns(2)
+# Initialize the state if it doesn't exist
+if 'show_df' not in st.session_state:
+    st.session_state.show_df = False
+
+if st.session_state.show_df:
+    df["Cluster"] = clusters_3
+    df['Group'] = df['Cluster'].map(cluster_mapping)
+    st.header("Mean Values for Each Feature by Cluster")
+    st.dataframe(df.groupby("Group")[features].mean())
+    st.write("This shows the clear distinctions between the features the groups were clustered by.")
+
+    cluster_stats = df.groupby('Group')[['ERA', 'FIP', 'WHIP', 'BABIP']].agg(['mean', 'median'])
+    st.header("Mean and Median Values of ERA, FIP, WHIP, and BABIP by Cluster")
+    st.dataframe(cluster_stats)
+    st.write("This shows that strikeout pitchers are the most effective in terms of ERA, FIP and WHIP, while contact pitchers are the most effective in terms of BABIP. This makes sense as the traditional contact pitcher generates more weak contact.")
 
 # Create a button to toggle content
-with col1:
+with col2:
     if st.button("Cluster Analysis Visualizations", key="cluster_button"):
         # This will toggle the state between True and False
         st.session_state.show_cluster_analysis = not st.session_state.get('show_cluster_analysis', False)
@@ -221,7 +231,7 @@ principal_df['WHIP'] = df['WHIP']
 principal_df['K%'] = df['K%']
 
 # Create a button to toggle content
-with col2:
+with col3:
     if st.button("PCA Visualizations", key="PCA_button"):
         # This will toggle the state between True and False
         st.session_state.show_pca = not st.session_state.get('show_pca', False)
