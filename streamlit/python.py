@@ -69,6 +69,8 @@ elbow_data = pd.DataFrame({
     'Inertia': inertia
 })
 
+st.subheader("Click here to display or hide different parts of our project!")
+
 col1, col2, col3, col4 = st.columns(4)
 
 with col4:
