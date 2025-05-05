@@ -199,41 +199,12 @@ principal_components = pca.fit_transform(scaled_data)
 principal_df = pd.DataFrame(data=principal_components, columns=['PC1', 'PC2', 'PC3'])
 
 # Add the 'Group' column to the principal component DataFrame
-principal_df['Group'] = df['Group']
 
-fig4, ax = plt.subplots(figsize=(8, 6))
-sns.scatterplot(
-    x='PC1', 
-    y='PC2', 
-    hue='Group', 
-    data=principal_df, 
-    palette=cluster_color,
-    ax=ax
-)
-ax.set_title('PCA of Pitcher Data by Group')
-ax.set_xlabel('Principal Component 1')
-ax.set_ylabel('Principal Component 2')
 
 # Display in Streamlit
-st.pyplot(fig4)
-
-fig5, ax = plt.subplots(figsize=(8, 6))
-sns.scatterplot(
-    x='PC1', 
-    y='PC3', 
-    hue='Group', 
-    data=principal_df, 
-    palette=cluster_color,
-    ax=ax
-)
-ax.set_title('PCA of Pitcher Data by Group')
-ax.set_xlabel('Principal Component 1')
-ax.set_ylabel('Principal Component 2')
-
-# Display in Streamlit
-st.pyplot(fig5)
 st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
 
+principal_df['Group'] = df['Group']
 principal_df['Last Name, First Name'] = df['Last Name, First Name']
 principal_df['BABIP'] = df['BABIP']
 principal_df['FIP'] = df['FIP']
@@ -241,7 +212,7 @@ principal_df['ERA'] = df['ERA']
 principal_df['WHIP'] = df['WHIP']
 principal_df['K%'] = df['K%']
 
-fig6 = px.scatter(
+fig4 = px.scatter(
     principal_df, 
     x='PC1',
     y='PC2',
@@ -251,5 +222,18 @@ fig6 = px.scatter(
     height=600,
     hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']
 )
+st.plotly_chart(fig4, use_container_width=True)
+st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
 
-st.plotly_chart(fig6, use_container_width=True)
+fig5 = px.scatter(
+    principal_df, 
+    x='PC1',
+    y='PC3',
+    color='Group',
+    color_discrete_map=cluster_color,
+    title="PCA of Pitcher Data (PC1 vs PC3)",
+    height=600,
+    hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']
+)
+st.plotly_chart(fig5, use_container_width=True)
+st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
