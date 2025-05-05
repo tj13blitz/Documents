@@ -235,7 +235,7 @@ st.pyplot(fig5)
 st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
 
 fig6 = px.scatter(
-    principal_df,
+    df,
     x='PC1',
     y='PC2',
     color='Group',
