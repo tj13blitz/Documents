@@ -24,7 +24,8 @@ df['K/9'] = K_per_nine
 df['WHIP'] = WHIP
 df['TP/9'] = TP_Per_9
 
-st.header("MLB Pitchers, Contact vs. Strikeout")
+st.header("Data Science Capstone: MLB Pitchers, Contact vs. Strikeout")
+
 
 st.write("Take a look at the data used! All 2024 pitchers with min. 100 PA.")
 st.write("Choose which stats you want to see or search for specific players.")
@@ -198,12 +199,6 @@ principal_components = pca.fit_transform(scaled_data)
 # Create a new DataFrame with the principal components
 principal_df = pd.DataFrame(data=principal_components, columns=['PC1', 'PC2', 'PC3'])
 
-# Add the 'Group' column to the principal component DataFrame
-
-
-# Display in Streamlit
-st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
-
 principal_df['Group'] = df['Group']
 principal_df['Last Name, First Name'] = df['Last Name, First Name']
 principal_df['BABIP'] = df['BABIP']
@@ -212,28 +207,38 @@ principal_df['ERA'] = df['ERA']
 principal_df['WHIP'] = df['WHIP']
 principal_df['K%'] = df['K%']
 
-fig4 = px.scatter(
-    principal_df, 
-    x='PC1',
-    y='PC2',
-    color='Group',
-    color_discrete_map=cluster_color,
-    title="PCA of Pitcher Data (PC1 vs PC2)",
-    height=600,
-    hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']
-)
-st.plotly_chart(fig4, use_container_width=True)
-st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
+# Create a button to toggle content
+if st.button("Toggle PCA Visualizations"):
+    # This will toggle the state between True and False
+    st.session_state.show_pca = not st.session_state.get('show_pca', False)
 
-fig5 = px.scatter(
-    principal_df, 
-    x='PC1',
-    y='PC3',
-    color='Group',
-    color_discrete_map=cluster_color,
-    title="PCA of Pitcher Data (PC1 vs PC3)",
-    height=600,
-    hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']
-)
-st.plotly_chart(fig5, use_container_width=True)
-st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
+# Initialize the state if it doesn't exist
+if 'show_pca' not in st.session_state:
+    st.session_state.show_pca = False
+
+if st.session_state.show_pca:
+    fig4 = px.scatter(
+        principal_df, 
+        x='PC1',
+        y='PC2',
+        color='Group',
+        color_discrete_map=cluster_color,
+        title="PCA of Pitcher Data (PC1 vs PC2)",
+        height=600,
+        hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']
+    )
+    st.plotly_chart(fig4, use_container_width=True)
+    st.write("The principal component analysis shows how principal components 1 and 2 separate the 3 groups of pitchers fairly well.")
+
+    fig5 = px.scatter(
+        principal_df, 
+        x='PC1',
+        y='PC3',
+        color='Group',
+        color_discrete_map=cluster_color,
+        title="PCA of Pitcher Data (PC1 vs PC3)",
+        height=600,
+        hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']
+    )
+    st.plotly_chart(fig5, use_container_width=True)
+    st.write("The principal component analysis shows how principal components 1 and 3 clearly separate the 3 groups of pitchers.")
