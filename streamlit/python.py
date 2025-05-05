@@ -105,7 +105,7 @@ with col1:
         # This will toggle the state between True and False
         st.session_state.show_df = not st.session_state.get('show_df', False)
 
-# Initialize the state if it doesn't exist
+# Initialize the state
 if 'show_df' not in st.session_state:
     st.session_state.show_df = False
 
@@ -123,11 +123,11 @@ if st.session_state.show_df:
 
 # Create a button to toggle content
 with col2:
-    if st.button("Cluster Analysis Visualizations", key="cluster_button"):
+    if st.button("Cluster Analysis Visualizations"):
         # This will toggle the state between True and False
         st.session_state.show_cluster_analysis = not st.session_state.get('show_cluster_analysis', False)
 
-# Initialize the state if it doesn't exist
+# Initialize the state
 if 'show_cluster_analysis' not in st.session_state:
     st.session_state.show_cluster_analysis = False
 
