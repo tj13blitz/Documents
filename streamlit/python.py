@@ -101,7 +101,7 @@ cluster_color = {
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    if st.button("Cluster Analysis Visualizations", key="df_button"):
+    if st.button("Group Performance", key="df_button"):
         # This will toggle the state between True and False
         st.session_state.show_df = not st.session_state.get('show_df', False)
 
@@ -109,9 +109,10 @@ with col1:
 if 'show_df' not in st.session_state:
     st.session_state.show_df = False
 
+df["Cluster"] = clusters_3
+df['Group'] = df['Cluster'].map(cluster_mapping)
+
 if st.session_state.show_df:
-    df["Cluster"] = clusters_3
-    df['Group'] = df['Cluster'].map(cluster_mapping)
     st.header("Mean Values for Each Feature by Cluster")
     st.dataframe(df.groupby("Group")[features].mean())
     st.write("This shows the clear distinctions between the features the groups were clustered by.")
