@@ -72,15 +72,15 @@ elbow_data = pd.DataFrame({
 col1, col2, col3, col4 = st.columns(4)
 
 with col4:
-    if st.button("Group Performance", key="df_button"):
+    if st.button("Elbow Analysis", key="elbow_button"):
             # This will toggle the state between True and False
-            st.session_state.show_df = not st.session_state.get('show_df', False)
+            st.session_state.show_elbow = not st.session_state.get('show_elbow', False)
 
     # Initialize the state
-    if 'show_df' not in st.session_state:
-        st.session_state.show_df = False
+    if 'show_elbow' not in st.session_state:
+        st.session_state.show_elbow = False
 
-    if st.session_state.show_df:
+    if st.session_state.show_elbow:
         st.header("Elbow Analysis Reveals 3 Clusters as Optimal")
 
         with st.container():
