@@ -27,7 +27,7 @@ df['TP/9'] = TP_Per_9
 st.header("Data Science Capstone: MLB Pitchers, Contact vs. Strikeout")
 
 
-st.write("Take a look at the data used! All 2024 pitchers with min. 100 PA.")
+st.write("Take a look at the data used! All 2024 MLB pitchers with min. 100 PA.")
 st.write("Choose which stats you want to see or search for specific players.")
 
 # Create multiselect bar to show/hide different columns
@@ -69,18 +69,30 @@ elbow_data = pd.DataFrame({
     'Inertia': inertia
 })
 
-st.header("Elbow Analysis Reveals 3 Clusters as Optimal")
+col1, col2, col3, col4 = st.columns(4)
 
-with st.container():
-    chart = alt.Chart(elbow_data).mark_line().encode(
-        x='Number of Clusters (k)',
-        y=alt.Y('Inertia', scale=alt.Scale(domain=[8200, 5000], reverse=True)),
-        tooltip=['Number of Clusters (k)', 'Inertia']
-    ).properties(
-        width='container'
-    )
-    
-    st.altair_chart(chart, use_container_width=True)
+with col4:
+    if st.button("Group Performance", key="df_button"):
+            # This will toggle the state between True and False
+            st.session_state.show_df = not st.session_state.get('show_df', False)
+
+    # Initialize the state
+    if 'show_df' not in st.session_state:
+        st.session_state.show_df = False
+
+    if st.session_state.show_df:
+        st.header("Elbow Analysis Reveals 3 Clusters as Optimal")
+
+        with st.container():
+            chart = alt.Chart(elbow_data).mark_line().encode(
+                x='Number of Clusters (k)',
+                y=alt.Y('Inertia', scale=alt.Scale(domain=[8200, 5000], reverse=True)),
+                tooltip=['Number of Clusters (k)', 'Inertia']
+            ).properties(
+                width='container'
+            )
+            
+            st.altair_chart(chart, use_container_width=True)
 
 #Apply K-Means for k=3
 kmeans_3 = KMeans(n_clusters=3, random_state=42)
@@ -97,8 +109,6 @@ cluster_color = {
     "Contact": "green",
     "Hybrid": "blue"
 }
-
-col1, col2, col3 = st.columns(3)
 
 with col1:
     if st.button("Group Performance", key="df_button"):
@@ -124,7 +134,7 @@ if st.session_state.show_df:
 
 # Create a button to toggle content
 with col2:
-    if st.button("Cluster Analysis Visualizations", key="cluster_button"):
+    if st.button("Analysis Visualizations", key="cluster_button"):
         # This will toggle the state between True and False
         st.session_state.show_cluster_analysis = not st.session_state.get('show_cluster_analysis', False)
 
