@@ -101,7 +101,7 @@ cluster_color = {
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    if st.button("Cluster Analysis Visualizations", key="cluster_button"):
+    if st.button("Cluster Analysis Visualizations", key="df_button"):
         # This will toggle the state between True and False
         st.session_state.show_df = not st.session_state.get('show_df', False)
 
@@ -123,7 +123,7 @@ if st.session_state.show_df:
 
 # Create a button to toggle content
 with col2:
-    if st.button("Cluster Analysis Visualizations"):
+    if st.button("Cluster Analysis Visualizations", key="cluster_button"):
         # This will toggle the state between True and False
         st.session_state.show_cluster_analysis = not st.session_state.get('show_cluster_analysis', False)
 
