@@ -233,3 +233,16 @@ ax.set_ylabel('Principal Component 2')
 # Display in Streamlit
 st.pyplot(fig5)
 st.write("The principal component analysis shows how principal components 1 and 2 clearly separate the 3 groups of pitchers.")
+
+fig6 = px.scatter(
+    principal_df,
+    x='PC1',
+    y='PC2',
+    color='Group',
+    color_discrete_map=cluster_color,
+    title=" ",
+    height=600,
+    hover_data=['Last Name, First Name', 'Group', 'BABIP', 'FIP', 'ERA', 'WHIP', 'K%']
+)
+
+st.pyplot(fig6)
