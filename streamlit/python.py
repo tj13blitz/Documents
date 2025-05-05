@@ -116,7 +116,7 @@ if st.button("Cluster Analysis Visualizations"):
 
 # Initialize the state if it doesn't exist
 if 'show_cluster_analysis' not in st.session_state:
-    st.session_state.shoshow_cluster_analysisw_pca = False
+    st.session_state.show_cluster_analysis = False
 
 if st.session_state.show_cluster_analysis:
     st.header("Pitcher Clusters, WHIP vs. ERA")
